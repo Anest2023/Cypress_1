@@ -1,17 +1,16 @@
+
 describe('template spec', () => {
   it('passes', () => {
-    cy.visit('http://localhost:3000/')
+    cy.visit('/')
   })
 })
 
 
 it("Should successfully login", () => {
-  cy.visit('http://localhost:3000/');
+  cy.visit('/');
   
-  cy.contains('Log in').click();
-  cy.get('#mail').type('test@test.com');
-  cy.get ('#pass').type('test');
-  cy.contains('Submit').click();
+
+  cy.login('test@test.com', 'test');
 
   cy.contains('Log out').should('be.visible').and('not.be.disabled');
 
@@ -20,11 +19,11 @@ it("Should successfully login", () => {
 
 
 it("Should not login with empty login", () => {
-  cy.visit('http://localhost:3000/');
-  cy.contains("Log in").click();
-  cy.get("#mail").type(" ");
-  cy.get("#pass").type("test");
-  cy.contains("Submit").click();
+  cy.visit('/');
+
+
+  cy.login(' ', 'test');
+
   cy.get("#mail")
     .then(($el) => $el[0].checkValidity())
     .should("be.false");
@@ -36,7 +35,8 @@ it("Should not login with empty login", () => {
 
 
 it("Should not login with empty password", () => {
-  cy.visit('http://localhost:3000/');
+  cy.visit('/');
+
   cy.contains("Log in").click();
   cy.get("#mail").type("test@test.com");
   cy.contains("Submit").click();
@@ -47,13 +47,19 @@ it("Should not login with empty password", () => {
 });
 
 
+describe('Favorites', () => {
+  it('passes', () => {
+    cy.visit('/')
+  })
+})
+
+
+
 it("Favorites is visible, is not desabled", () => {
-  cy.visit('http://localhost:3000/');
-  
-  cy.contains('Log in').click();
-  cy.get('#mail').type('test@test.com');
-  cy.get ('#pass').type('test');
-  cy.contains('Submit').click();
+  cy.visit('/');
+
+  cy.login('test@test.com', 'test');
+
 
   cy.contains('Favorites').should('be.visible').and('not.be.disabled');
 
@@ -64,24 +70,18 @@ it("Favorites is visible, is not desabled", () => {
 
 it("Add new is visible, is not desabled", () => {
   cy.visit('http://localhost:3000/');
-  
-  cy.contains('Log in').click();
-  cy.get('#mail').type('test@test.com');
-  cy.get ('#pass').type('test');
-  cy.contains('Submit').click();
+
+  cy.login('test@test.com', 'test');
 
   cy.contains('Add new').should('be.visible').and('not.be.disabled');
 
 });
 
 
-it("Dook description is visible", () => {
-  cy.visit('http://localhost:3000/');
-  
-  cy.contains('Log in').click();
-  cy.get('#mail').type('test@test.com');
-  cy.get ('#pass').type('test');
-  cy.contains('Submit').click();
+it("Book description is visible", () => {
+  cy.visit('/');
+
+  cy.login('test@test.com', 'test');
 
   cy.contains('Add new').click();
 

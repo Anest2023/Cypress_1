@@ -4,11 +4,23 @@
   "description": "first tests with Cypress",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:headless": "cypress run --headless --config-file",
+    "test:config": "npm run test:headless cypress.config.js",
+    "test:mobile": "npm run test:headless cypress.mobile.config.js",
+     "test:headless:mobile:chrome": "cypress run --browser chrome --config-file cypress.mobile.config.js",
+    "test:headless:mobile:firefox": "cypress run --browser firefox --config-file cypress.mobile.config.js",
+     "test:headed": "cypress open --config-file cypress.config.js",
+    "test:headed:mobile": "cypress open --config-file cypress.mobile.config.js"
+    
   },
   "author": "OM",
   "license": "ISC",
   "dependencies": {
-    "cypress": "^8.3.0"
+    "cypress": "^15.4.0"
   }
-}
+  }
+
+
+  
+
